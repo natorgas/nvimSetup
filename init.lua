@@ -1,6 +1,9 @@
 vim.g.maplocalleader = " " 
 vim.g.mapleader = " "
 
+-- Fix Treesitter parser path
+vim.opt.rtp:prepend(vim.fn.stdpath("data") .. "/site")
+
 -- Load plugins
 require("config.lazy")
 
@@ -28,7 +31,6 @@ vim.cmd("colorscheme catppuccin")
 
 -- Scrolloff
 vim.opt.scrolloff = 8
-
 
 -- Format text when window size is changed -----------------------------------
 
