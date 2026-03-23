@@ -8,7 +8,7 @@ require("config.lazy")
 require("keymaps")
 
 -- Load lspconfig
-require("config.lsp")
+-- require("config.lsp")
 
 -- Line numbers and relative lines
 vim.opt.number = true

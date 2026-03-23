@@ -130,10 +130,38 @@ return {
 
       -- Setup Mason and tell it to manage our language servers
       require('mason').setup({})
+
       require('mason-lspconfig').setup({
-        ensure_installed = {'clangd', 'pyright'}, -- Automatically installs C++ and Python servers
+        ensure_installed = { 'clangd', 'pyright' },
         handlers = {
+          -- default handler for all servers
           lsp_zero.default_setup,
+
+          -- custom clangd setup
+          clangd = function()
+            local lspconfig = require('lspconfig')
+
+            local capabilities = lsp_zero.get_capabilities()
+            capabilities.offsetEncoding = { "utf-16" }
+
+            lspconfig.clangd.setup({
+              capabilities = capabilities,
+              cmd = {
+                "clangd",
+                "--background-index",
+                "--clang-tidy",
+                "--header-insertion=iwyu",
+                "--completion-style=bundled",
+                "--function-arg-placeholders",
+                "--fallback-style=llvm",
+                "--all-scopes-completion=false",
+              },
+              init_options = {
+                usePlaceholders = true,
+                clangdFileStatus = true,
+              },
+            })
+          end,
         },
       })
 
