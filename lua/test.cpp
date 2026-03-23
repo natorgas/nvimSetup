@@ -1,7 +1,6 @@
 
 int main() {
 
-
   if (true) {
   }
 

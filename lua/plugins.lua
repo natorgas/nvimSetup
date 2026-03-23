@@ -70,19 +70,20 @@ return {
   "nvim-treesitter/nvim-treesitter",
   version = "*",
   build = ":TSUpdate",
-  lazy = false,
   config = function()
-    local parser_dir = vim.fn.stdpath("data") .. "/custom_treesitter"
-    vim.fn.mkdir(parser_dir, "p")
-    vim.opt.runtimepath:prepend(parser_dir)
-
-    require("nvim-treesitter.configs").setup({
-      parser_install_dir = parser_dir,
+    require('nvim-treesitter.configs').setup {
       ensure_installed = { "python", "cpp", "c", "lua", "json" },
       highlight = { enable = true, additional_vim_regex_highlighting = false },
-    })
+      playground = {
+        enable = true,
+        persist_queries = false,
+        updatetime = 25,
+        disable = {}
+      },
+    }
   end,
 },
+
 
 -- lazy-load playground when you run its commands
 {
