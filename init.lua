@@ -32,6 +32,8 @@ vim.cmd("colorscheme catppuccin")
 -- Scrolloff
 vim.opt.scrolloff = 8
 
+vim.opt.showmode = false
+
 -- Format text when window size is changed -----------------------------------
 
 vim.api.nvim_create_augroup("MyWindowResizing", { clear = true })
