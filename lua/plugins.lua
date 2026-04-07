@@ -17,26 +17,26 @@ return {
     -- Custom highlights
     custom_highlights = function(colors)
       return {
-        ["@keyword.return"]   = { fg = "#FF0000" },  -- return
-        ["@preproc_include"]  = { fg = "#000000" },  -- include
-        ["@preproc"]  = { fg = "#000000" },  -- include
-        ["@keyword.conditional"] = { fg = "#FF0000" },  -- if 
-        ["@keyword.repeat"] = { fg = "#FF0000" },  -- while/for
-        ["@keyword.function"] = { fg = "#000000" },  -- function keywords
-        ["@type.builtin"]     = { fg = "#FF0000" },  -- int, char, float
-        ["@conditional"]      = { fg = "#FF0000" },  -- if, else, while, switch
-        ["@parameter"]        = { fg = "#000000" },  -- function arguments
-        ["@function"]        = { fg = "#000000" },  -- function 
+        ["@keyword.return"]       = { fg = "#FF0000" },  -- return
+        -- ["@preproc_include"]      = { fg = "#000000" },  -- include
+        -- ["@preproc"]              = { fg = "#000000" },  -- include
+        ["@keyword.conditional"]  = { fg = "#FF0000" },  -- if 
+        ["@keyword.repeat"]       = { fg = "#FF0000" },  -- while/for
+        ["@keyword.function"]     = { fg = "#000000" },  -- function keywords
+        ["@type.builtin"]         = { fg = "#FF0000" },  -- int, char, float
+        ["@conditional"]          = { fg = "#FF0000" },  -- if, else, while, switch
+        -- ["@parameter"]            = { fg = "#000000" },  -- function arguments
+        ["@function"]             = { fg = "#000000" },  -- function 
         ["@function.call"]        = { fg = "#000000" },  -- function 
-        ["@function.method.call"]        = { fg = "#000000" },  -- function 
-        ["@string"]        = { fg = "#00CC00" },  -- string
-        ["@variable"]        = { fg = "#000000" },  -- string
-        ["@type"]        = { fg = "#000000" },  -- string
-        ["@operator"]        = { fg = "#757575" },  -- string
-        ["@variable.parameter"] = { fg = "#000000" }, -- function arguments in definitions
-        ["@keyword"]          = { fg = "#FF0000" },  -- if, while, etc
-        ["@number"]          = { fg = "#9C27B0" },  -- if, while, etc
-        ["@module"]   = { fg = "#000000", style = { "default" }, },  -- return
+        ["@function.method.call"] = { fg = "#000000" },  -- function 
+        ["@string"]               = { fg = "#00CC00" },  -- string
+        ["@variable"]             = { fg = "#000000" },  -- string
+        ["@type"]                 = { fg = "#000000" },  -- string
+        ["@operator"]             = { fg = "#757575" },  -- string
+        ["@variable.parameter"]   = { fg = "#000000" }, -- function arguments in definitions
+        ["@keyword"]              = { fg = "#FF0000" },  -- if, while, etc
+        ["@number"]               = { fg = "#9C27B0" },  -- if, while, etc
+        ["@module"]               = { fg = "#000000", style = { "default" }, },  -- Classes
 
         Normal = { bg = "#FFFFFF" },
 
@@ -141,7 +141,7 @@ return {
                 "clangd",
                 "--background-index",
                 "--clang-tidy",
-                "--header-insertion=iwyu",
+                "--header-insertion=never",
                 "--completion-style=bundled",
                 "--function-arg-placeholders",
                 "--fallback-style=llvm",
@@ -242,7 +242,7 @@ return {
               end
               return str
             end,
-            color = { fg = '#ffffff', bg = '#303030'},
+            color = { fg = '#000000', bg = '#D3D3D3' },
           }
         },
         -- lualine_a = {'mode'},
