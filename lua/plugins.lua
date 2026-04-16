@@ -153,6 +153,21 @@ return {
               },
             })
           end,
+
+          -- ✅ custom pyright setup (added here)
+          pyright = function()
+            local lspconfig = require('lspconfig')
+
+            lspconfig.pyright.setup({
+              settings = {
+                python = {
+                  analysis = {
+                    autoImportCompletions = false,
+                  },
+                },
+              },
+            })
+          end,
         },
       })
 
