@@ -146,6 +146,7 @@ return {
                 "--function-arg-placeholders",
                 "--fallback-style=llvm",
                 "--all-scopes-completion=false",
+                "--compile-commands-dir=build",
               },
               init_options = {
                 usePlaceholders = true,
