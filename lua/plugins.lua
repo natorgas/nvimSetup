@@ -123,7 +123,7 @@ return {
       require('mason').setup({})
 
       require('mason-lspconfig').setup({
-        ensure_installed = { 'clangd', 'pyright' },
+        ensure_installed = { 'clangd', 'pyright', 'ts_ls', 'html', 'cssls' },
         handlers = {
           -- default handler for all servers
           lsp_zero.default_setup,
@@ -146,7 +146,7 @@ return {
                 "--function-arg-placeholders",
                 "--fallback-style=llvm",
                 "--all-scopes-completion=false",
-                "--compile-commands-dir=build",
+                "--query-driver=/usr/bin/g++,/usr/bin/c++",
               },
               init_options = {
                 usePlaceholders = true,
