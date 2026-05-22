@@ -66,23 +66,22 @@ return {
   end
 },
 
+-- Tree-sitter
+
 {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   config = function()
-    -- 1. Start the native syntax highlighting engine automatically
     vim.api.nvim_create_autocmd("FileType", {
       callback = function()
         pcall(vim.treesitter.start)
       end,
     })
 
-    -- 2. Rebuild "ensure_installed" for out-of-the-box laptop syncing
     local ensure_installed = { "python", "cpp", "c", "lua", "json" }
     
     for _, lang in ipairs(ensure_installed) do
       -- Neovim v0.12 API: Try to load the parser. 
-      -- If it fails (returns false), it means it's not on this laptop yet.
       local is_installed = pcall(vim.treesitter.language.add, lang)
       
       if not is_installed then
