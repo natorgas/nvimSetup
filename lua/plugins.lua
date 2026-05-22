@@ -68,28 +68,29 @@ return {
 
 {
   "nvim-treesitter/nvim-treesitter",
-  version = "*",
   build = ":TSUpdate",
   config = function()
-    require('nvim-treesitter.configs').setup {
-      ensure_installed = { "python", "cpp", "c", "lua", "json" },
-      highlight = { enable = true, additional_vim_regex_highlighting = false },
-      playground = {
-        enable = true,
-        persist_queries = false,
-        updatetime = 25,
-        disable = {}
-      },
-    }
+    -- 1. Start the native syntax highlighting engine automatically
+    vim.api.nvim_create_autocmd("FileType", {
+      callback = function()
+        pcall(vim.treesitter.start)
+      end,
+    })
+
+    -- 2. Rebuild "ensure_installed" for out-of-the-box laptop syncing
+    local ensure_installed = { "python", "cpp", "c", "lua", "json" }
+    
+    for _, lang in ipairs(ensure_installed) do
+      -- Neovim v0.12 API: Try to load the parser. 
+      -- If it fails (returns false), it means it's not on this laptop yet.
+      local is_installed = pcall(vim.treesitter.language.add, lang)
+      
+      if not is_installed then
+        -- Automatically trigger the plugin's installer for the missing language
+        vim.cmd("TSInstall " .. lang)
+      end
+    end
   end,
-},
-
-
--- lazy-load playground when you run its commands
-{
-  "nvim-treesitter/playground",
-  cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
-  dependencies = { "nvim-treesitter/nvim-treesitter" },
 },
 
 -- LSP Setup --------------------------------------------------
