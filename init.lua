@@ -4,6 +4,12 @@ vim.g.mapleader = " "
 -- Fix Treesitter parser path
 vim.opt.rtp:prepend(vim.fn.stdpath("data") .. "/site")
 
+vim.filetype.add({
+  extension = {
+    ptx = "xml",
+  },
+})
+
 -- Load plugins
 require("config.lazy")
 
