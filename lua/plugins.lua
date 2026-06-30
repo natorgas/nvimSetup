@@ -217,6 +217,18 @@ return {
         }
       })
 
+      -- Command to disable autocomplete only in the current file/buffer
+      vim.api.nvim_create_user_command('CmpDisable', function()
+        require('cmp').setup.buffer { enabled = false }
+        print("Autocomplete disabled for this buffer.")
+      end, { desc = "Disable autocomplete in current buffer" })
+
+      -- Command to re-enable autocomplete in the current file/buffer
+      vim.api.nvim_create_user_command('CmpEnable', function()
+        require('cmp').setup.buffer { enabled = true }
+        print("Autocomplete enabled for this buffer.")
+      end, { desc = "Enable autocomplete in current buffer" })
+
     end
   }
 },
