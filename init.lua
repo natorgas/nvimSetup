@@ -68,3 +68,11 @@ vim.api.nvim_create_autocmd("FocusLost", {
   command = "wa",
 })
 
+-- Disable Kitty Keyboard Protocol (breaks keyd-synthesized <Esc> in Konsole)
+vim.api.nvim_create_autocmd("UIEnter", {
+  once = true,
+  callback = function()
+    io.stdout:write("\27[<u")
+  end,
+})
+
