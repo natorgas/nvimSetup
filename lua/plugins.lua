@@ -78,15 +78,20 @@ return {
     })
 
     local ensure_installed = { "python", "cpp", "c", "lua", "json", "xml", "fortran" }
-    
-    for _, lang in ipairs(ensure_installed) do
-      -- Neovim v0.12 API: Try to load the parser. 
-      local is_installed = pcall(vim.treesitter.language.add, lang)
-      
-      if not is_installed then
-        -- Automatically trigger the plugin's installer for the missing language
-        vim.cmd("TSInstall " .. lang)
-      end
+
+    -- Ask the plugin what is actually on disk. Don't use
+    -- pcall(vim.treesitter.language.add, lang): on a missing parser that
+    -- returns `nil, err` instead of raising, so the pcall reports success and
+    -- the parser never gets installed.
+    local installed = require("nvim-treesitter.config").get_installed("parsers")
+    local missing = vim.tbl_filter(function(lang)
+      return not vim.tbl_contains(installed, lang)
+    end, ensure_installed)
+
+    -- install() is async, so this doesn't block startup. Once a parser lands it
+    -- drops out of `missing` and nothing runs on later launches.
+    if #missing > 0 then
+      require("nvim-treesitter").install(missing)
     end
   end,
 },
