@@ -38,6 +38,10 @@ return {
         ["@number"]               = { fg = "#9C27B0" },  -- if, while, etc
         ["@module"]               = { fg = "#000000", style = { "default" }, },  -- Classes
 
+        -- Fortran's queries tag program/subroutine/function/end as
+        -- @keyword.function, which is black above, so treat them as keywords
+        ["@keyword.function.fortran"] = { fg = "#FF0000" },  -- program, subroutine, end
+
         Normal = { bg = "#FFFFFF" },
 
       }
