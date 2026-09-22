@@ -77,7 +77,7 @@ return {
       end,
     })
 
-    local ensure_installed = { "python", "cpp", "c", "lua", "json", "xml" }
+    local ensure_installed = { "python", "cpp", "c", "lua", "json", "xml", "fortran" }
     
     for _, lang in ipairs(ensure_installed) do
       -- Neovim v0.12 API: Try to load the parser. 
