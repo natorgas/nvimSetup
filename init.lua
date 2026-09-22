@@ -69,10 +69,26 @@ vim.api.nvim_create_autocmd("FocusLost", {
 })
 
 -- Disable Kitty Keyboard Protocol (breaks keyd-synthesized <Esc> in Konsole)
+--
+-- Nvim only enables the protocol *after* the terminal replies to its startup
+-- query, so hooking UIEnter alone is a race: when the reply lands late, nvim
+-- pushes the protocol back on and <Esc> stops working. TermResponse fires on
+-- that reply, and the deferred pop is guaranteed to land after nvim's push.
+-- Note: nvim_ui_send writes through nvim's own output buffer; io.stdout
+-- bypasses it and can be reordered against nvim's own sequences.
+local function disable_kitty_keyboard()
+  pcall(vim.api.nvim_ui_send, "\27[<u")
+end
+
 vim.api.nvim_create_autocmd("UIEnter", {
   once = true,
+  callback = disable_kitty_keyboard,
+})
+
+vim.api.nvim_create_autocmd("TermResponse", {
   callback = function()
-    io.stdout:write("\27[<u")
+    vim.schedule(disable_kitty_keyboard)
+    vim.defer_fn(disable_kitty_keyboard, 50)
   end,
 })
 
