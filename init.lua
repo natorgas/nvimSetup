@@ -44,18 +44,10 @@ vim.opt.showmode = false
 
 vim.api.nvim_create_augroup("MyWindowResizing", { clear = true })
 
-vim.api.nvim_create_autocmd("VimResized", {
-  group = "MyWindowResizing",
-  callback = function()
-    local ft = vim.bo.filetype
-    if ft == "text" or ft == "markdown" or ft == "gitcommit" then
-      local width = math.floor(0.8*vim.api.nvim_win_get_width(0))
-      vim.opt_local.textwidth = width
-      vim.cmd("normal! ggVGgq")
-    end
-  end,
-  desc = "Automatically adjust textwidth and reformat on window resize",
-})
+-- Text wrapping for prose
+vim.opt.wrap = true
+vim.opt.linebreak = true
+vim.opt.textwidth = 0
 
 ------------------------------------------------------------------------------
 
